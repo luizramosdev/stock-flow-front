@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title> Estoque</title>
+</head>
+
+<body>
+    <div class="main-estoque">
+        <div class="left-estoque">
+            <h1> Estoque</h1>
+
+        </div>
+
+        <div class="right-estoque">
+
+            <div class="filter-container">
+                <input type="text" id="filtro-nome" placeholder="Filtrar por Nome do Produto">
+                <select id="filtro-tipo">
+                    <option value="">Tipo de Movimentação</option>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+                <button class="btn-filtro" onclick="filtrarMovimentacoes()">Filtro</button>
+            </div>
+
+            <table class="movimentacao-grid">
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Tipo de Movimentação</th>
+                        <th>Quantidade</th>
+                        <th>Data da Movimentação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-movimentacoes">
+
+                </tbody>
+            </table>
+            <div class="submenu" id="submenu-entrada">
+                <h2>Entrada de Mercadoria</h2>
+                <button class="btn-acao" onclick="abrirFormularioEntrada()">Lançar Entrada</button>
+                <div class="form-entrada" id="form-entrada">
+                    <label for="nome-produto-entrada">Nome do Produto</label>
+                    <input type="text" id="nome-produto-entrada" placeholder="Nome do Produto">
+                    <label for="quantidade-entrada">Quantidade</label>
+                    <input type="number" id="quantidade-entrada" placeholder="Quantidade">
+                    <label for="data-entrada">Data</label>
+                    <input type="date" id="data-entrada">
+                    <button class="btn-lancar" onclick="lancarEntrada()">Lançar Entrada</button>
+                </div>
+            </div>
+
+
+            <div class="submenu" id="submenu-saida">
+                <h2>Saída de Mercadoria</h2>
+                <button class="btn-acao" onclick="abrirFormularioSaida()">Lançar Saída</button>
+                <div class="form-saida" id="form-saida">
+                    <div class="form-entrada" id="form-saida">
+                        
+                  
+
+                    </select>
+                    <label for="nome-produto-saida">Nome do Produto</label>
+                        <input type="text" id="nome-produto-saida" placeholder="Nome do Produto">
+                    <label for="quantidade-saida">Quantidade</label>
+                    <input type="number" id="quantidade-saida" placeholder="Quantidade">
+                    <label for="data-saida">Data</label>
+                    <input type="date" id="data-saida">
+                    <button class="btn-lancar" onclick="lancarSaida()">Lançar Saída</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const movimentacoes = [];
+
+        function filtrarMovimentacoes() {
+            const nomeFiltro = document.getElementById('filtro-nome').value.toLowerCase();
+            const tipoFiltro = document.getElementById('filtro-tipo').value;
+
+            const filtradas = movimentacoes.filter(mov => {
+                const nomeProduto = mov.nome.toLowerCase();
+                const tipoMovimentacao = mov.tipo.toLowerCase();
+                return (
+                    (nomeProduto.includes(nomeFiltro)) &&
+                    (tipoFiltro ? tipoMovimentacao === tipoFiltro : true)
+                );
+            });
+
+            exibirTabela(filtradas);
+        }
+
+        function exibirTabela(dados) {
+            const tabela = document.getElementById('tabela-movimentacoes');
+            tabela.innerHTML = '';
+
+            dados.forEach(mov => {
+                const linha = document.createElement('tr');
+                linha.innerHTML = `
+            <td>${mov.nome}</td>
+            <td>${mov.tipo}</td>
+            <td>${mov.quantidade}</td>
+            <td>${mov.data}</td>
+        `;
+                tabela.appendChild(linha);
+            });
+        }
+
+        function abrirFormularioEntrada() {
+            document.getElementById('form-entrada').style.display = 'block';
+            document.getElementById('form-saida').style.display = 'none';
+        }
+
+        function abrirFormularioSaida() {
+            document.getElementById('form-saida').style.display = 'block';
+            document.getElementById('form-entrada').style.display = 'none';
+        }
+
+        function lancarEntrada() {
+            const nomeProduto = document.getElementById('nome-produto-entrada').value;
+            const quantidade = document.getElementById('quantidade-entrada').value;
+            const data = document.getElementById('data-entrada').value;
+
+            const novaMovimentacao = {
+                nome: nomeProduto,
+                tipo: 'Entrada',
+                quantidade: quantidade,
+                data: data,
+          
+            };
+            movimentacoes.push(novaMovimentacao);
+            exibirTabela(movimentacoes);
+            document.getElementById('form-entrada').reset();
+        }
+
+        function lancarSaida() {
+            const nomeProduto = document.getElementById('nome-produto-saida').value;
+            const quantidade = document.getElementById('quantidade-saida').value;
+            const data = document.getElementById('data-saida').value;
+
+            const novaMovimentacao = {
+                nome: nomeProduto,
+                tipo: 'Saída',
+                quantidade: quantidade,
+                data: data,
+            };
+
+            movimentacoes.push(novaMovimentacao);
+            exibirTabela(movimentacoes);
+            document.getElementById('form-saida').reset();
+        }
+    </script>
+
+</body>
+
+</html>

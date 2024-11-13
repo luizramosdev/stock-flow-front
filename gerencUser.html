@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tela de usuarios</title>
+</head>
+
+<body>
+    <div class="main-usuario">
+        <h1>Gerenciamento de Usuários</h1>
+        <div class="action-buttons">
+            <button class="btn-action" id="btn-novo">Novo</button>
+            <button class="btn-action" id="btn-editar">Editar</button>
+            <button class="btn-action" id="btn-excluir">Excluir</button>
+        </div>
+        <div class="form-container">
+            <div class="cardform">
+                <h2>Formulário de Usuário</h2>
+                <form id="usuario-form">
+                    <div class="textfiel">
+                        <label for="nome">Nome</label>
+                        <input type="text" name="nome" id="nome" placeholder="Digite o nome">
+                    </div>
+
+                    <div class="textfiel">
+                        <label for="tipo-usuario">Tipo de Usuário</label>
+                        <input type="text" name="tipo-usuario" id="tipo-usuario" placeholder="Digite o tipo de usuário">
+                    </div>
+
+                    <div class="textfiel">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" placeholder="Digite o e-mail">
+                    </div>
+
+                    <div class="textfiel">
+                        <label for="senha">Senha</label>
+                        <input type="password" name="senha" id="senha" placeholder="Digite a senha">
+                    </div>
+                    <button type="submit" class="btn-submit">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="usuarios-grid">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selecionar-todos"> Selecionar</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Tipo de Usuário</th>
+                        <th>Data de Cadastro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="usuario-selecionado"></td>
+                        <td>higor neres</td>
+                        <td>higor@email.com</td>
+                        <td>Administrador</td>
+                        <td>07/11/2024</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="usuario-selecionado"></td>
+                        <td>seila</td>
+                        <td>seila@email.com</td>
+                        <td>Usuário</td>
+                        <td>07/11/2024</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
